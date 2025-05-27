@@ -12,15 +12,16 @@
     <div id="main">
         <div id="header">
             <ul id="nav">
-                <li><a href="/index.html">About H-T</a></li>
+                <!-- <li><a href="/index.html">About H-T</a></li> -->
                 <li><a href="/home.html">Home</a></li>
                 <li><a href="/documents.html">Documents</a></li>
                 <!-- <li><a href="">Account</a></li> -->
                 <li><a href="#"></a></li>
             </ul>
             <div class="user">
-                <i class="ti-user"><a href="/account.html"></a></i>
+                <i class="ti-user"></i>
             </div>
+
         </div>
                 <!-- Login/Register Popup -->
         <div id="auth-popup" class="popup hidden">
@@ -48,11 +49,26 @@
             </div>
         </div>
 
-        <div id="slider">
+                <!-- Sidebar User Menu -->
+        <div id="user-sidebar" class="sidebar hidden">
+            <div class="sidebar-content">
+                <span class="close-sidebar">&times;</span>
+                <h3>Xin chào!</h3>
+                <ul class="sidebar-menu">
+                    <li><a href="/account.html">Profile</a></li>
+                    <li><a href="#">Tùy chọn</a></li>
+                    <li><a href="#" id="logout-btn">Đăng xuất</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="overlay hidden"></div>
+
+        <div id="slider" style="background: url('/assets/ima/huong1.jpg') center / cover no-repeat">
             <!-- <div id="backgr-ima">
                 <img src="/assets/ima/huong1.jpg" alt="huong">
                 <img src="/assets/ima/trinh1.jpg" alt="trinh">
             </div> -->
+            
             <div class="text-content">
                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa consequuntur tempora excepturi aliquam deserunt aut cum itaque numquam aperiam illum ex, nobis ut iste reiciendis dolorem fugit, dignissimos laborum vel!</p>
             </div>

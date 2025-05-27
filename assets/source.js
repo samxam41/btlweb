@@ -9,24 +9,33 @@ document.addEventListener('DOMContentLoaded', () => {
     const fileInput = document.getElementById('file-input');
     const docList = document.querySelector('.documents-list');
 
-     // Kiểm tra trạng thái đăng nhập
+    //  Thêm các phần tử liên quan đến sidebar
+    const userSidebar = document.getElementById('user-sidebar');
+    const overlay = document.querySelector('.overlay');
+    const closeSidebarBtn = document.querySelector('.close-sidebar');
+    const logoutBtn = document.getElementById('logout-btn');
+
+    // Sự kiện click vào icon user ( chỉnh sửa logic)
     if (userIcon) {
         userIcon.addEventListener('click', () => {
             const isLoggedIn = localStorage.getItem('loggedIn') === 'true';
             if (isLoggedIn) {
-                window.location.href = '/account.html';
+                userSidebar.classList.add('show');
+                overlay.classList.remove('hidden');
             } else {
                 popup.classList.remove('hidden');
             }
         });
     }
 
+    // Đóng popup đăng nhập
     if (closeBtn) {
         closeBtn.addEventListener('click', () => {
             popup.classList.add('hidden');
         });
     }
 
+    // Tab đăng nhập / đăng ký
     tabs.forEach(tab => {
         tab.addEventListener('click', () => {
             tabs.forEach(t => t.classList.remove('active'));
@@ -50,7 +59,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const password = loginForm.querySelector('input[placeholder="Mật khẩu"]').value;
 
             if (username && password) {
-                // Giả sử đăng nhập thành công
                 localStorage.setItem('loggedIn', 'true');
                 popup.classList.add('hidden');
                 alert('Đăng nhập thành công!');
@@ -61,7 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Đăng ký (tùy chọn - không cần xử lý backend ở đây)
+    // Đăng ký
     const registerForm = document.getElementById('register-form');
     if (registerForm) {
         registerForm.addEventListener('submit', (e) => {
@@ -72,14 +80,38 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (email && username && password) {
                 alert('Đăng ký thành công! Vui lòng đăng nhập.');
-                document.querySelector('[data-tab="login"]').click(); // Chuyển sang form đăng nhập
+                document.querySelector('[data-tab="login"]').click();
             } else {
                 alert('Vui lòng nhập đầy đủ thông tin đăng ký!');
             }
         });
     }
 
-    // Nếu đang ở trang documents.html và chưa đăng nhập thì chuyển hướng
+    // Đóng sidebar
+    if (closeSidebarBtn && overlay) {
+        closeSidebarBtn.addEventListener('click', () => {
+            userSidebar.classList.remove('show');
+            overlay.classList.add('hidden');
+        });
+
+        overlay.addEventListener('click', () => {
+            userSidebar.classList.remove('show');
+            overlay.classList.add('hidden');
+        });
+    }
+
+    // Đăng xuất
+    if (logoutBtn) {
+        logoutBtn.addEventListener('click', () => {
+            localStorage.removeItem('loggedIn');
+            alert('Đã đăng xuất!');
+            userSidebar.classList.remove('show');
+            overlay.classList.add('hidden');
+            window.location.href = '/index.html';
+        });
+    }
+
+    // Kiểm tra đăng nhập ở trang documents.html
     if (window.location.pathname.includes('/documents.html')) {
         const isLoggedIn = localStorage.getItem('loggedIn') === 'true';
         if (!isLoggedIn) {
@@ -87,10 +119,8 @@ document.addEventListener('DOMContentLoaded', () => {
             window.location.href = '/home.html';
         }
     }
-    
-    // Tải lên và hiển thị tài liệu
-    
 
+    // Upload tài liệu
     if (form && fileInput && docList) {
         form.addEventListener('submit', (e) => {
             e.preventDefault();
@@ -109,4 +139,3 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
-
