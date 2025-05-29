@@ -111,14 +111,88 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Kiểm tra đăng nhập ở trang documents.html
-    if (window.location.pathname.includes('/documents.html')) {
-        const isLoggedIn = localStorage.getItem('loggedIn') === 'true';
-        if (!isLoggedIn) {
-            alert('Bạn cần đăng nhập để truy cập trang Tài liệu!');
-            window.location.href = '/home.html';
-        }
+
+// --- [source.js] Append this code at the end ---
+
+function checkAuthAndRedirect(e, url) {
+    const isLoggedIn = localStorage.getItem('loggedIn') === 'true';
+    if (!isLoggedIn) {
+        e.preventDefault();
+        alert('Vui lòng đăng nhập để truy cập!');
+    } else {
+        window.location.href = url;
     }
+}
+
+// Chặn truy cập nếu chưa đăng nhập
+if (document.readyState !== 'loading') {
+    restrictUnauthAccess();
+} else {
+    document.addEventListener('DOMContentLoaded', restrictUnauthAccess);
+}
+
+function restrictUnauthAccess() {
+    const pathname = window.location.pathname;
+    const isLoggedIn = localStorage.getItem('loggedIn') === 'true';
+    if (!isLoggedIn && (pathname.includes('home.html') || pathname.includes('documents.html'))) {
+        alert('Bạn cần đăng nhập để truy cập trang này!');
+        window.location.href = 'index.html';
+    }
+
+    // Gắn sự kiện cho menu chuyển trang
+    document.querySelectorAll('#nav a[href$="home.html"], #nav a[href$="documents.html"]').forEach(link => {
+        link.addEventListener('click', e => checkAuthAndRedirect(e, link.getAttribute('href')));
+    });
+
+    // Sidebar hoạt động mọi trang
+    const userIcon = document.querySelector('.user');
+    const popup = document.getElementById('auth-popup');
+    const userSidebar = document.getElementById('user-sidebar');
+    const overlay = document.querySelector('.overlay');
+    const closeSidebarBtn = document.querySelector('.close-sidebar');
+
+    if (userIcon) {
+        userIcon.addEventListener('click', () => {
+            if (localStorage.getItem('loggedIn') === 'true') {
+                userSidebar.classList.add('show');
+                overlay.classList.remove('hidden');
+            } else {
+                popup.classList.remove('hidden');
+            }
+        });
+    }
+    if (closeSidebarBtn && overlay) {
+        closeSidebarBtn.addEventListener('click', () => {
+            userSidebar.classList.remove('show');
+            overlay.classList.add('hidden');
+        });
+    }
+}
+
+// --- Background slider animation in index.html ---
+if (document.querySelector('#slider')) {
+    let slider = document.querySelector('#slider');
+    let images = [
+        './assets/ima/huong1.jpg',
+        './assets/ima/trinh1.jpg'
+    ];
+    let i = 0;
+    setInterval(() => {
+        i = (i + 1) % images.length;
+        slider.style.background = `url('${images[i]}') center / cover no-repeat`;
+    }, 5000);
+}
+
+// --- Home page post animation ---
+if (document.querySelector('.post-slider')) {
+    let slider = document.querySelector('.post-slider');
+    let scrollAmount = 0;
+    setInterval(() => {
+        scrollAmount += 250;
+        if (scrollAmount >= slider.scrollWidth - slider.clientWidth) scrollAmount = 0;
+        slider.scrollTo({ left: scrollAmount, behavior: 'smooth' });
+    }, 3000);
+}
 
     // Upload tài liệu
     if (form && fileInput && docList) {
