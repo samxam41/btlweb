@@ -183,16 +183,6 @@ if (document.querySelector('#slider')) {
     }, 5000);
 }
 
-// --- Home page post animation ---
-if (document.querySelector('.post-slider')) {
-    let slider = document.querySelector('.post-slider');
-    let scrollAmount = 0;
-    setInterval(() => {
-        scrollAmount += 250;
-        if (scrollAmount >= slider.scrollWidth - slider.clientWidth) scrollAmount = 0;
-        slider.scrollTo({ left: scrollAmount, behavior: 'smooth' });
-    }, 3000);
-}
 
     // Upload tài liệu
     if (form && fileInput && docList) {
@@ -212,4 +202,40 @@ if (document.querySelector('.post-slider')) {
             fileInput.value = '';
         });
     }
+    
+});
+// Xử lý like và comment
+document.querySelectorAll('.post').forEach(post => {
+    const likeBtn = post.querySelector('.like-btn');
+    const likeCountSpan = post.querySelector('.like-count');
+    const commentBtn = post.querySelector('.comment-btn');
+    const commentsDiv = post.querySelector('.comments');
+
+    let liked = false;
+    let likeCount = 0;
+    likeBtn.addEventListener('click', () => {
+        liked = !liked;
+        likeCount += liked ? 1 : -1;
+        likeCountSpan.textContent = likeCount;
+        likeBtn.style.color = liked ? 'red' : 'black';
+    });
+    commentBtn.addEventListener('click', () => {
+        commentsDiv.classList.toggle('hidden');
+        if (!commentsDiv.querySelector('input')) {
+            const input = document.createElement('input');
+            input.className = 'comment-input';
+            input.placeholder = 'Nhập bình luận...';
+
+            input.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter' && input.value.trim()) {
+                    const p = document.createElement('p');
+                    p.textContent = input.value;
+                    commentsDiv.appendChild(p);
+                    input.value = '';
+                }
+            });
+
+            commentsDiv.appendChild(input);
+        }
+    });
 });
