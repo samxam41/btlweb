@@ -178,7 +178,11 @@ html {
     display: flex;
     gap: 16px;
 }
-
+.post-time,
+.comment-time {
+    font-size: 0.8em;
+    color: #666;
+}
 /* Trượt ngang cho post-slider */
 .post-slider-wrapper {
     overflow-x: auto;
