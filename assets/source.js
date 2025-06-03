@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const overlay = document.querySelector('.overlay');
     const closeSidebarBtn = document.querySelector('.close-sidebar');
     const logoutBtn = document.getElementById('logout-btn');
-
+    
     //
 //     document.addEventListener('click', (e) => {
 //     if (e.target.closest('.user')) {
@@ -152,6 +152,34 @@ document.addEventListener('DOMContentLoaded', () => {
                 docList.appendChild(item);
             }
             fileInput.value = '';
+        });
+    }
+
+    if (form && fileInput && docList) {
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const text = document.getElementById("post-text").value;
+            const files = fileInput.files;
+
+            // Log bài viết
+            console.log("Nội dung bài viết:", text);
+            for (const file of files) {
+                console.log("Tệp đính kèm:", file.name);
+
+                // Tạo khối hiển thị tài liệu
+                const item = document.createElement('div');
+                item.className = 'document';
+                item.innerHTML = `
+                    <h4>${file.name}</h4>
+                    <p>${text || 'Không có nội dung mô tả'}</p>
+                    <a href="#">Download</a>
+                `;
+                docList.appendChild(item);
+            }
+
+            alert("Bài viết đã được gửi (mô phỏng)");
+            form.reset();
         });
     }
 

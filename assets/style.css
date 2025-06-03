@@ -207,6 +207,57 @@ html {
     border-right: 1px solid #ddd;
     background-color: #fff;
 }
+/* Layout chia đôi phần slider-home */
+.slider-container {
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+}
+
+.post-form {
+    width: 40%;
+    background: #f7f7f7;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+}
+
+.post-form h3 {
+    margin-bottom: 10px;
+}
+
+.post-form textarea {
+    width: 100%;
+    height: 80px;
+    padding: 10px;
+    margin-bottom: 10px;
+    resize: vertical;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.post-form input[type="file"] {
+    margin-bottom: 10px;
+    display: block;
+}
+
+.post-form button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.post-form button:hover {
+    background-color: #45a049;
+}
+
+/* Giữ nguyên slider bên phải */
+.post-slider-wrapper {
+    width: 60%;
+}
 
 /* Nút tương tác */
 .post-actions {
