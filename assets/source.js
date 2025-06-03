@@ -20,40 +20,67 @@ document.addEventListener('DOMContentLoaded', () => {
     const closeSidebarBtn = document.querySelector('.close-sidebar');
     const logoutBtn = document.getElementById('logout-btn');
 
+    //
+//     document.addEventListener('click', (e) => {
+//     if (e.target.closest('.user')) {
+//         const isLoggedIn = localStorage.getItem('loggedIn') === 'true';
+//         if (isLoggedIn && userSidebar && overlay) {
+//             userSidebar.classList.add('show');
+//             overlay.classList.remove('hidden');
+//         } else {
+//             if (typeof popup !== 'undefined' && popup) {
+//                 popup.classList.remove('hidden');
+//             } else {
+//                 alert('Vui lòng đăng nhập để sử dụng!');
+//                 window.location.href = 'index.html';
+//             }
+//         }
+//     }
+// });
+
     // --- Sidebar logic ---
-    if (userIcon) {
-        userIcon.addEventListener('click', () => {
-            const isLoggedIn = localStorage.getItem('loggedIn') === 'true';
-            if (isLoggedIn && userSidebar && overlay) {
-                userSidebar.classList.add('show');
-                overlay.classList.remove('hidden');
-            } else if (popup) {
-                popup.classList.remove('hidden');
-            }
-        });
-    }
+        if (userIcon) {
+            userIcon.addEventListener('click', () => {
+                const isLoggedIn = localStorage.getItem('loggedIn') === 'true';
+                if (isLoggedIn && userSidebar && overlay) {
+                    userSidebar.classList.remove('hidden'); // Đảm bảo không bị display: none
+                    overlay.classList.remove('hidden');
+                    userSidebar.classList.add('show');
+                    
+                } else if (popup) {
+                    popup.classList.remove('hidden');
+                }
+            });
+        }
 
-    if (closeSidebarBtn && overlay && userSidebar) {
-        closeSidebarBtn.addEventListener('click', () => {
-            userSidebar.classList.remove('show');
-            overlay.classList.add('hidden');
-        });
+        // Gắn sự kiện đóng sidebar
+        if (closeSidebarBtn && overlay && userSidebar) {
+            closeSidebarBtn.addEventListener('click', () => {
+                overlay.classList.add('hidden');
+                userSidebar.classList.remove('show');
+                
+            });
 
-        overlay.addEventListener('click', () => {
-            userSidebar.classList.remove('show');
-            overlay.classList.add('hidden');
-        });
-    }
+            overlay.addEventListener('click', () => {
+                 overlay.classList.add('hidden');
+                userSidebar.classList.remove('show');
+               
+            });
+        }
 
-    if (logoutBtn) {
-        logoutBtn.addEventListener('click', () => {
-            localStorage.removeItem('loggedIn');
-            alert('Đã đăng xuất!');
-            userSidebar.classList.remove('show');
-            overlay.classList.add('hidden');
-            window.location.href = '/index.html';
-        });
-    }
+        // Gắn sự kiện logout
+        if (logoutBtn && userSidebar && overlay) {
+            logoutBtn.addEventListener('click', () => {
+                localStorage.removeItem('loggedIn');
+                alert('Đã đăng xuất!');
+                overlay.classList.add('hidden');
+                userSidebar.classList.remove('show');
+                
+                window.location.href = './index.html';
+            });
+        }
+
+        
 
     // --- Auth popup logic ---
     if (closeBtn) {
@@ -86,7 +113,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 localStorage.setItem('loggedIn', 'true');
                 popup.classList.add('hidden');
                 alert('Đăng nhập thành công!');
-                window.location.href = '/home.html';
+                window.location.href = './home.html';
             } else {
                 alert('Vui lòng nhập đầy đủ thông tin!');
             }
