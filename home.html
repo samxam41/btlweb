@@ -136,13 +136,38 @@
                 <span class="close-sidebar">&times;</span>
                 <h3>Xin chào!</h3>
                 <ul class="sidebar-menu">
-                    <li><a href="./account.html">Profile</a></li>
-                    <li><a href="#">Tùy chọn</a></li>
+                    <li><a href="./account.html">Cài đặt cá nhân</a></li>
                     <li><a href="#" id="logout-btn">Đăng xuất</a></li>
                 </ul>
             </div>
         </div>
         <div class="overlay hidden"></div>
+
+        <div class="contact-buttons">
+            <a href="https://facebook.com" target="_blank" class="contact-btn fb">
+                <i class="ti-facebook"></i>
+                <span>Facebook</span>
+            </a>
+            <a href="https://zalo.me" target="_blank" class="contact-btn zalo">
+                <i class="ti-mobile"></i>
+                <span>Zalo</span>
+            </a>
+            <div class="contact-btn phone" id="phone-btn">
+                <i class="ti-headphone-alt"></i>
+                <span>Gọi</span>
+            </div>
+
+            <!-- Popup số điện thoại -->
+            <div class="phone-popup hidden" id="phone-popup">
+                <div class="popup-content">
+                    <strong>Liên hệ:</strong>
+                    <ul>
+                        <li>📞 0901 234 567</li>
+                        <li>📞 0987 654 321</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
 
         <div id="footer"></div>
     </div>

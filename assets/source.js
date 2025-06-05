@@ -19,8 +19,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const overlay = document.querySelector('.overlay');
     const closeSidebarBtn = document.querySelector('.close-sidebar');
     const logoutBtn = document.getElementById('logout-btn');
-    
-    //
+    const phoneBtn = document.getElementById("phone-btn");
+    const popup2 = document.getElementById("phone-popup");
+    const avatarUpload = document.getElementById("avatar-upload");
+    const avatarPreview = document.getElementById("avatar-preview");
+
 //     document.addEventListener('click', (e) => {
 //     if (e.target.closest('.user')) {
 //         const isLoggedIn = localStorage.getItem('loggedIn') === 'true';
@@ -37,7 +40,25 @@ document.addEventListener('DOMContentLoaded', () => {
 //         }
 //     }
 // });
+    
+   // Popup điện thoại (phone-popup)
+    if (phoneBtn && popup2) {
+        phoneBtn.addEventListener("click", (e) => {
+            e.stopPropagation(); // Ngăn chặn sự kiện lan ra ngoài
+            popup2.classList.toggle("hidden");
+        });
 
+        // Ẩn popup khi click ra ngoài, nhưng KHÔNG ảnh hưởng các click khác
+        document.addEventListener("click", function (e) {
+            if (!popup2.classList.contains("hidden")) { // chỉ xử lý nếu đang hiển thị
+                const isClickInsidePopup = popup2.contains(e.target);
+                const isClickOnPhoneBtn = phoneBtn.contains(e.target);
+                if (!isClickInsidePopup && !isClickOnPhoneBtn) {
+                    popup2.classList.add("hidden");
+                }
+            }
+        });
+    }
     // --- Sidebar logic ---
         if (userIcon) {
             userIcon.addEventListener('click', () => {
@@ -184,18 +205,18 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // --- Background animation ---
-    if (document.querySelector('#slider')) {
-        let slider = document.querySelector('#slider');
-        let images = [
-            './assets/ima/huong1.jpg',
-            './assets/ima/trinh1.jpg'
-        ];
-        let i = 0;
-        setInterval(() => {
-            i = (i + 1) % images.length;
-            slider.style.background = `url('${images[i]}') center / cover no-repeat`;
-        }, 5000);
-    }
+    // if (document.querySelector('#slider')) {
+    //     let slider = document.querySelector('#slider');
+    //     let images = [
+    //         './assets/ima/huong1.jpg',
+    //         './assets/ima/trinh1.jpg'
+    //     ];
+    //     let i = 0;
+    //     setInterval(() => {
+    //         i = (i + 1) % images.length;
+    //         slider.style.background = `url('${images[i]}') center / cover no-repeat`;
+    //     }, 5000);
+    // }
 
     // --- Restrict access ---
     function restrictUnauthAccess() {
@@ -270,4 +291,19 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
+    
+    avatarUpload.addEventListener("change", function () {
+        const file = this.files[0];
+        if (file && file.type.startsWith("image/")) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                avatarPreview.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+
+ 
+
+        
 });

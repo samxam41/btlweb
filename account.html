@@ -55,27 +55,89 @@
                 <span class="close-sidebar">&times;</span>
                 <h3>Xin chào!</h3>
                 <ul class="sidebar-menu">
-                    <li><a href="./account.html">Profile</a></li>
-                    <li><a href="#">Tùy chọn</a></li>
+                    <li><a href="./account.html">Cài đặt cá nhân</a></li>
                     <li><a href="#" id="logout-btn">Đăng xuất</a></li>
                 </ul>
             </div>
         </div>
         <div class="overlay hidden"></div>
 
-        <div id="slider">
+        <!-- <div id="slider"> -->
             <!-- <div id="backgr-ima">
                 <img src="/assets/ima/huong1.jpg" alt="huong">
                 <img src="/assets/ima/trinh1.jpg" alt="trinh">
             </div> -->
             
-            <div class="text-content">
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa consequuntur tempora excepturi aliquam deserunt aut cum itaque numquam aperiam illum ex, nobis ut iste reiciendis dolorem fugit, dignissimos laborum vel!</p>
-            </div>
+            
         </div>
         <div id="content">
+            <div class="profile-container">
+    <!-- Avatar -->
+    <div class="avatar-section">
+        <label for="avatar-upload">
+            <img id="avatar-preview" src="./assets/ima/default-avatar.png" alt="avatar">
+        </label>
+        <input type="file" id="avatar-upload" accept="image/*" hidden>
+    </div>
+
+    <!-- Thông tin cá nhân -->
+    <div class="info-section">
+        <form id="profile-form">
+            <!-- Giới thiệu -->
+            <div class="info-box">
+                <label for="bio">Giới thiệu bản thân</label>
+                <textarea id="bio" name="bio" placeholder="Viết vài dòng về bạn..."></textarea>
+            </div>
+
+            <!-- Thay đổi thông tin -->
+            <div class="info-box">
+                <h3>Thay đổi thông tin</h3>
+                <input type="text" name="username" placeholder="Tên đăng nhập">
+                <input type="email" name="email" placeholder="Email">
+                <input type="password" name="password" placeholder="Mật khẩu mới">
+                <input type="number" name="age" placeholder="Độ tuổi">
+                <select name="gender">
+                    <option value="">Giới tính</option>
+                    <option value="male">Nam</option>
+                    <option value="female">Nữ</option>
+                    <option value="other">Khác</option>
+                </select>
+                <input type="text" name="hobby" placeholder="Sở thích">
+
+                <button type="submit">Lưu thay đổi</button>
+            </div>
+        </form>
+    </div>
+</div>
 
         </div>
+
+        <div class="contact-buttons">
+            <a href="https://facebook.com" target="_blank" class="contact-btn fb">
+                <i class="ti-facebook"></i>
+                <span>Facebook</span>
+            </a>
+            <a href="https://zalo.me" target="_blank" class="contact-btn zalo">
+                <i class="ti-mobile"></i>
+                <span>Zalo</span>
+            </a>
+            <div class="contact-btn phone" id="phone-btn">
+                <i class="ti-headphone-alt"></i>
+                <span>Gọi</span>
+            </div>
+
+            <!-- Popup số điện thoại -->
+            <div class="phone-popup hidden" id="phone-popup">
+                <div class="popup-content">
+                    <strong>Liên hệ:</strong>
+                    <ul>
+                        <li>📞 0901 234 567</li>
+                        <li>📞 0987 654 321</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
         <div id="footer">
 
         </div>
